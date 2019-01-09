@@ -1,0 +1,55 @@
+# Costmap 2d parameters
+# References: http://wiki.ros.org/costmap_2d#costmap_2d.2BAC8-layered.Parameters
+# 	      http://wiki.ros.org/costmap_2d/hydro/obstacles
+#	      http://wiki.ros.org/costmap_2d/hydro/inflation
+
+map_type: costmap
+
+### GLOBAL FILTERING PARAMETERS
+
+# The default maximimum distance from the robot at which an obstacle will be inserted into the cost map in meters
+# First run value = 2.5
+# The value is doubled to get the robot to update obstacles from a further range which might enable better path planning.
+obstacle_range: 5.0
+
+# The default range in meters at which to raytrace out obstacles from the map using sensor data.
+# First run value = 3.0
+# The value is doubled to get the more range on obstacle detection which might enable better path planning.
+# The value is increase by a third based on the experience of some students on slack.
+# Second run value = 6.0
+raytrace_range: 8.0
+
+### COORDINATE FRAME AND TRANSFORM DATA PARAMETERS
+
+# The delay in transform data (tf) that is tolerable in secconds.
+transform_tolerance: 0.2
+
+# The radius of the robot in meters.
+# The length of our robot in its widest dimension is 0.4m
+robot_radius: 0.4 
+
+### RATE PARAMETERS
+
+# The frequency in Hz for the map to be updated.
+# Hz is the number of cycles per second.
+# First run value = 20.0
+# The call rate is slowed to try and get rid of the control loop update error.
+update_frequency: 10.0
+
+# The frequency in Hz for the map to be updated.
+# Hz is the number of cycles per second.
+# First run value = 20.0
+# The call rate is slowed to try and get rid of the control loop update error.
+publish_frequency: 10.0
+
+
+### INFLATION LAYER PARAMETERS
+
+# The radius in meters to which the map inflates obstacle cost values
+# First run value = 0.55
+# The value is increased by 50% because sometimes the raytrace outlines of obstacles fall within the barriers (indicating that they are further away than they actually are). This seems dangerous for the purpose of avoiding obstacles. It would be more prudent for there to be some margin of error and for these to rather fall beyond the obstacles so that the robot can avoid any damage to itself.
+inflation_radius: 0.825
+
+observation_sources: laser_scan_sensor
+
+laser_scan_sensor: {sensor_frame: hokuyo, data_type: LaserScan, topic: /new_bot/laser/scan, marking: true, clearing: true}

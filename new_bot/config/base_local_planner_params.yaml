@@ -1,0 +1,77 @@
+# Base local planner parameters
+# Reference: http://wiki.ros.org/base_local_planner#Parameters
+
+TrajectoryPlannerROS:
+
+### ROBOT CONFIGURATION PARAMETERS
+
+  # Holonomic means strafing commands can be issued.
+  # Non-holonomic means no strafing commands will be issued.
+  holonomic_robot: false
+  
+  # The maximimum forward velocity in meters per second.
+  # Set to double the default maximum forward velocity.
+  # First run value = 1.0
+  # The value is halved because it seems that the robot seems to navigate awkwardly sometimes when moving too fast.
+  max_vel_x: 0.5
+  
+  # The maximum rotational velocity in radians per second.
+  # 2 radians per second = ~45 degrees per second
+  # Set to double the default maximum in place rotational velocity.
+  max_in_place_vel_theta: 0.8
+
+  # Speed to be used during escapes in meters per second.
+  # Set to half the default maximum forward velocity.
+  escape_vel: -0.25
+
+### GOAL TOLERANCE PARAMETERS
+
+  # Tolerance in radians in terms of pose angle for determining if goal destination has been reached.
+  # 0.05 = ~ 3 degrees 
+  yaw_goal_tolerance: 0.05  
+
+  # Tolerance in meters for robot position for determining if goal destination has been reached.
+  # Set to half the default amount of 10cm.
+  xy_goal_tolerance: 0.05  
+
+### FORWARD SIMULATION PARAMETERS
+
+  # Frequency at which the controller will be called in Hz.
+  # Hz is the number of cycles per second.
+  # First run value = 20.0
+  # The call rate is slowed to try and get rid of the control loop update error.
+  controller_frequency: 10.0
+
+### TRAJECTORY SCORING PARAMETERS
+  
+  # Weighting for how much to stay close to the given path (max 5.0)
+  # Second run value = 0.6
+  # The value is increased slightly to try and get more direct movement towards the goal destination.
+  pdist_scale: 0.8
+
+  # Weighting for how much to attempt to reach local goal, controlling for speed (max 5.0)
+  # Second run value = 0.8
+  # The value is increased slightly to try and get more direct movement in local movements that might yield better results towards the goal destination.
+  gdist_scale: 1.0
+  
+  # Weighting for how much to attempt to avoid obstacles
+  # First run value = 0.01
+  # The value is doubled to try and get the robot to avoid barriers more when planning trajectories.
+  occdist_scale: 0.02
+
+  # How far to look ahead in meters when scoring in-place-rotation trajectories
+  # First run value = 0.325
+  # The value is more than doubled so that the robot can look further ahead when planning its rotations, because on the first run it seems as if it makes a lot of unnecessary rotations.
+  heading_lookahead: 0.7
+
+  # How far to look ahead in time in seconds along simulated trajectory when using heading scoring.
+  # First run value = 0.8
+  # The value is increased by 25% to get the robot to get a slightly longer simulated trajectory when planning its directional movements.
+  heading_scoring_timestep: 1.0
+
+### OSCILLATION PREVENTION PARAMETERS
+
+  # How far the robot must travel in meters before oscillation flags are reset.
+  # Second run value = 0.05
+  # The value is double to try and reduce the oscillation and to get the robot to move in smoother straighter lines during navigation.
+  oscillation_reset_dist: 0.1

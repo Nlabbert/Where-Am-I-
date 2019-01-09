@@ -1,0 +1,53 @@
+# Adaptive Monte Carlo localization package parameters
+# Reference:	http://wiki.ros.org/amcl#Parameters
+
+### OVERALL FILTER PARAMETERS
+
+	# Minimum allowed number of particles
+	# First run value = 50
+	# The value is halved because it seems the particles seem to be keeping around some very unlikely poses. If we reduce the total number of particles, some of those very unlikely poses might be more quickly disdarded duration resampling.
+	<param name="min_particles" value="25"/>
+
+	# Maximum allowed number of particles
+	# First run value = 500
+	# The value is halved because it seems the particles seem to be keeping around some very unlikely poses. If we reduce the total number of particles, some of those very unlikely poses might be more quickly disdarded duration resampling.
+	<param name="max_particles" value="250"/>
+
+	# Translational movement required before filter updates.
+	<param name="update_min_d" value="0.2"/>
+	
+	# Rotational movement required before filter updates.
+	<param name="update_min_a" value="0.52"/>
+
+	# Number of filter updates required before resampling
+	<param name="resample_interval" value="2"/>
+
+	# Time with which to post-date transforms, in other words, how long is the data carried over into the future before being replaced.
+	# First run value = 0.1
+	# The value is doubled so that it corresponds with the transform_tolerance value in the costmap. The larger value might also assist in keeping data around for longer because on the second run we are using a slower update frequency.
+	<param name="transform_tolerance" value="0.2"/>
+
+	# Exponential decay rate used for the slow average weight filter, used in deciding when to recover by adding random poses. A good value might be 0.001.
+	<param name="recovery_alpha_slow" value="0.001"/>
+
+	# Exponential decay rate for the fast average weight filter, used in deciding when to recover by adding random poses. A good value might be 0.1.
+	<param name="recovery_alpha_fast" value="0.1"/>
+
+
+### LASER MODEL PARAMETERS
+
+	# Minimum scan range (-1 means the minimum range possible will be utilised)
+	<param name="laser_min_range" value="-1.0"/>
+
+	# Maximum scan range (-1 means the maximum range possible will be utilised)
+	<param name="laser_max_range" value="-1.0"/>
+
+	# Number of evenly spaced beans in each scan that will be used to update the filter. Therefore, the higher the amount the denser the laser scan will be.
+	# Set to 10 times the default value of 30.
+	<param name="laser_max_beams" value="300"/>
+
+	# The model of laser to use. The possibilities are "likelihood_field", "likelihood_field_prob" or "beam"
+	<param name="laser_model_type" value="likelihood_field_prob"/>
+	
+
+	

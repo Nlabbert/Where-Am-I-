@@ -1,0 +1,43 @@
+# Costmap 2d parameters
+# References: http://wiki.ros.org/costmap_2d#costmap_2d.2BAC8-layered.Parameters
+
+local_costmap:
+
+### COORDINATE FRAME AND TRANSFORM DATA PARAMETERS
+
+   # The global frame for the costmap to operate in.
+   global_frame: odom
+
+   # The name of the frame for the base link of the robot.
+   robot_base_frame: robot_footprint
+
+### RATE PARAMETERS
+
+   # The frequency in Hz for the map to be updated.
+   # Set to 20.0 (the same rate at which the controller is called in base_local_planner)
+   # First run value = 20.0
+   # The call rate is slowed to try and get rid of the control loop update error.
+   update_frequency: 10.0
+
+   # The frequency in Hz for the map to publish display information
+   # Set to 20.0 (the same rate at which the controller is called in base_local_planner)
+   # First run value = 20.0
+   # The call rate is slowed to try and get rid of the control loop update error.
+   publish_frequency: 10.0
+
+### MAP MANAGEMENT PARAMETERS
+
+   # The width of the map in meters.
+   width: 20.0
+
+   # The height of the map in meters.
+   height: 20.0
+
+   # The resolution of the map in meters/cell.
+   resolution: 0.05
+
+   # The global map remains static while the local map changes as the robot moves and senses.
+   static_map: false
+
+   # If the map is static the rolling window parameter must be set to false.
+   rolling_window: true
